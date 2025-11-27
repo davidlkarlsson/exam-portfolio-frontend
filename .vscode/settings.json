@@ -1,0 +1,13 @@
+{
+    "typescript.tsdk": "node_modules/typescript/lib",
+  
+  // Files associations så att VS Code vet att .css är Tailwind
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  // Quick suggestions i JSX/TSX-strängar
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
+}
