@@ -4,14 +4,12 @@ import "./globals.css";
 
 const funnelSans = Funnel_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: '--font-funnel-sans'
+  weight: ["400", "500", "600", "700"]
 });
 
 const gowunDodum = Gowun_Dodum({
   subsets: ["latin"],
-  weight: ["400"],
-  variable: '--font-gowun-dodum'
+  weight: ["400"]
 });
 
 export const metadata: Metadata = {

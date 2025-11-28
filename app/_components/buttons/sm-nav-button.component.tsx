@@ -1,17 +1,22 @@
-import Image, { StaticImageData } from "next/image";
+import { LucideIcon, LucideProps } from "lucide-react";
+
 
 interface SmNavButtonProps {
-	src: StaticImageData | string,
-	alt: string,
+	icon: LucideIcon;
+  	iconProps?: LucideProps;
 	className?: string
 	onClick?: () => void
-	
 }
 
-export function SmNavButton({ src, alt, className, onClick}: SmNavButtonProps) {
+export function SmNavButton({ 
+	icon: Icon,
+	iconProps,
+	className,
+	onClick
+}: SmNavButtonProps) {
 	return (
 		
-			<Image src={src} alt={alt} className={className} onClick={onClick} />
+			<Icon {...iconProps} className={className} onClick={onClick} />
 			
 	);
 }

@@ -1,11 +1,14 @@
 import { assets } from "@/assets/assets";
 import Image from "next/image";
+import { LogIn, ArrowUpRight, SunMoon, Menu } from 'lucide-react';
 import { NavButton } from "@/app/_components/buttons/nav-button.component";
 import { SmNavButton } from "../buttons/sm-nav-button.component";
 import { useState } from "react";
 
+
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("home");
 
   return (
     <>
@@ -26,72 +29,110 @@ export function Navbar() {
 	    {/* Logo */}
     
         <a href="#top">
-          <h1 className="text-2xl font-bold py-3 cursor-pointer mr-14">
-            David Karlsson
-          </h1>
+          <Image src={assets.logo} alt={"logo_david_karlsson"} className="w-25 cursor-pointer mr-14"></Image>
         </a>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-10">
+        <ul className="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50">
           <li>
-            <a className="font-['Gowun_Dodum']" href="#top">
+            <a className={`font-['Gowun_Dodum'] ${activeLink === "home" ? "text-activeLink underline font-extrabold" : ""}`}
+                href="#top"
+                onClick={() => setActiveLink("home")}
+                >
               Home
             </a>
           </li>
           <li>
-            <a className="font-['Gowun_Dodum']" href="#about">
+            <a className={`font-['Gowun_Dodum'] ${activeLink === "about" ? "text-activeLink underline font-extrabold" : ""}`}
+                href="#about"
+                onClick={() => setActiveLink("about")}
+                >
               About
             </a>
           </li>
           <li>
-            <a className="font-['Gowun_Dodum']" href="#services">
+            <a className={`font-['Gowun_Dodum'] ${activeLink === "services" ? "text-activeLink underline font-extrabold" : ""}`}
+                href="#services"
+                onClick={() => setActiveLink("services")}
+                >
               Services
             </a>
           </li>
           <li>
-            <a className="font-['Gowun_Dodum']" href="#projects">
+            <a className={`font-['Gowun_Dodum'] ${activeLink === "projects" ? "text-activeLink underline font-extrabold" : ""}`}
+                href="#projects"
+                onClick={() => setActiveLink("projects")}
+                >
               Projects
             </a>
           </li>
           <li>
-            <a className="font-['Gowun_Dodum']" href="#contact">
+            <a className={`font-['Gowun_Dodum'] ${activeLink === "contact" ? "text-activeLink underline font-extrabold" : ""}`}
+                href="#contact"
+                onClick={() => setActiveLink("contact")}
+                >
               Contact
             </a>
           </li>
         </ul>
-
+        
+        
         {/* Buttons */}
         <div className="flex items-center gap-4">
+
+          {/* Theme Button */}
           <SmNavButton
-            src={assets.moon_icon}
-            alt="switch_theme_icon"
-            className="w-6 cursor-pointer"
+            icon={SunMoon}
+            iconProps={{ 
+            size: 35, 
+            color: "black",
+            strokeWidth: 1
+          }}
+            className="cursor-pointer"
           />
+
+          {/* Contact Button */}
           <NavButton
             text={"Contact"}
-            href={"#contact"}
-            src={assets.arrow_icon}
-            alt={"arrow_icon"}
+            href={"#contact"} 
+            icon={ArrowUpRight}
+            iconProps={{ 
+            size: 18, 
+            color: "black",
+            strokeWidth: 1
+          }}            
           />
+          
+          {/* Login Button */}
           <NavButton
             text={"Login"}
             href={"/login"}
-            src={assets.right_arrow_bold}
-            alt={"right_arrow_bold_icon"}
+            icon={LogIn}
+            iconProps={{ 
+            size: 18, 
+            color: "black", 
+            strokeWidth: 1 
+          }} 
           />
+          
+          {/* Hamburger Button */}
           <SmNavButton
-            src={assets.menu_black}
-            alt={"hamburger_icon_black"}
-            className="block md:hidden ml-3 w-6 cursor-pointer"
+            icon={Menu}
+            iconProps={{ 
+            size: 35, 
+            color: "black",
+            strokeWidth: 2
+          }}
+            className="block md:hidden ml-3 cursor-pointer"
             onClick={() => setIsMenuOpen(true)}
           />
         </div>
-
+        
         {/* Mobile Menu */}
         <ul
           className={`flex md:hidden flex-col gap-4 py-20 px-10 
-			fixed top-0 bottom-0 w-64 z-50 h-screen 
-            bg-lightNavBar transition duration-500
+			      fixed top-0 bottom-0 w-64 z-50 h-screen 
+            bg-mobileMenu transition duration-500
             ${isMenuOpen ? "right-0" : "-right-64"}
           `}
 		  >
@@ -106,8 +147,7 @@ export function Navbar() {
             />
           </div>
 
-		  {/* Menu Links */}
-
+		      {/* Mobile Menu Links */}
           <li>
             <a
               className="font-['Gowun_Dodum']"
