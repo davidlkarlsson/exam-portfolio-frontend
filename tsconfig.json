@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
+    "baseUrl": ".",
     "incremental": true,
     "plugins": [
       {
@@ -31,4 +32,6 @@
     "**/*.mts"
   ],
   "exclude": ["node_modules"]
+
+  
 }
