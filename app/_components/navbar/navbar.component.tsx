@@ -3,12 +3,24 @@ import Image from "next/image";
 import { LogIn, ArrowUpRight, SunMoon, Menu } from 'lucide-react';
 import { NavButton } from "@/app/_components/buttons/nav-button.component";
 import { SmNavButton } from "../buttons/sm-nav-button.component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export function Navbar() {
+  
+  const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
+
+  useEffect(()=>{
+    window.addEventListener('scroll', ()=>{
+      if(scrollY > 50){
+        setIsScrolled(true)
+      } else{
+        setIsScrolled(false)
+      }
+    })
+  },[])
 
   return (
     <>
@@ -23,8 +35,8 @@ export function Navbar() {
       </div>
 
 	  {/* Main Navigation */}
-
-      <nav className="w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50"> {/* z-50 puts it above everything else*/}
+      
+      <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 ${isScrolled ? "bg-white bg-opacity-50 backdrop-blur-lg shadow-sm" : ""}`}> {/* z-50 puts it above everything else*/}
     
 	    {/* Logo */}
     
@@ -33,7 +45,7 @@ export function Navbar() {
         </a>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50">
+        <ul className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 ${isScrolled ? "" : "bg-white shadow-sm bg-opacity-50"} `}>
           <li>
             <a className={`font-['Gowun_Dodum'] ${activeLink === "home" ? "text-activeLink underline font-extrabold" : ""}`}
                 href="#top"
