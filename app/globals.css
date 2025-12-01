@@ -7,5 +7,8 @@
   --color-darkTheme: #11001F;
   --color-mobileMenu: #fafaea;
   --color-activeLink: #f5c857;
+
+  --shadow-black: 4px 4px 0 #000;
+  --shadow-white: 4px 4px 0 #fff;
   
 }
