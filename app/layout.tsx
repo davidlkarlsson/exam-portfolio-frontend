@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${funnelSans.className} antialiased`}
+        className={`${funnelSans.className} antialiased leading-8 overflow-x-hidden`}
       >
         {children}
       </body>
