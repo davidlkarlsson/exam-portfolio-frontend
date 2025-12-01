@@ -17,9 +17,8 @@ export function About() {
               className="w-full rounded-3xl"
             />
           </div>
-          
-          <div className="flex-1">
 
+          <div className="flex-1">
             <p className="mb-10 max-w-2xl">
               I'm David Karlsson, a junior software developer based in Stockholm
               with a strong interest in modern web and backend development. I
@@ -28,13 +27,13 @@ export function About() {
               and Java. I'm curious, driven, and always eager to learn new
               things — especially within tech, design and problem-solving.
             </p>
-            
+
             <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
               {infoList.map(({ icon, iconDark, title, description }, index) => (
                 <li
                   key={index}
                   className="border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer 
-				  hover:bg-mobileMenu hover:-translate-y-1 duration-300 hover:shadow-black"
+				        hover:bg-mobileMenu hover:-translate-y-1 duration-300 hover:shadow-black"
                 >
                   <Image src={icon} alt={title} className="w-7 mt-3" />
                   <h3 className="my-4 font-semibold text-gray-700">{title}</h3>
@@ -49,14 +48,13 @@ export function About() {
               {toolsData.map((tool, index) => (
                 <li
                   className="flex items-center justify-center w-12 sm:w-14 aspect-square 
-				  border border-gray-400 rounded-lg cursor-pointer hover:-translate-y-1 duration-300"
+				          border border-gray-400 rounded-lg cursor-pointer hover:-translate-y-1 duration-300"
                   key={index}
                 >
                   <Image src={tool} alt="Tool" className="w-5 sm:w-7" />
                 </li>
               ))}
             </ul>
-			
           </div>
         </div>
       </div>
