@@ -8,7 +8,7 @@ export function Header() {
         className="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col
       items-center justify-center gap-4"
       >
-        <div>
+        <div className="mt-25">
           <Image
             src={assets.profile_img}
             alt="profile_img"

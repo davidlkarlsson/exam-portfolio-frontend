@@ -102,18 +102,7 @@ export function Navbar() {
           }}
             className="cursor-pointer"
           />
-
-          {/* Contact Button */}
-          <NavButton
-            text={"Contact"}
-            href={"#contact"} 
-            icon={ArrowUpRight}
-            iconProps={{ 
-            size: 18, 
-            color: "black",
-            strokeWidth: 1
-          }}            
-          />
+          
           
           {/* Login Button */}
           <NavButton
@@ -203,6 +192,15 @@ export function Navbar() {
               href="#contact"
             >
               Contact
+            </a>
+          </li>
+          <li>
+            <a
+              className="font-['Gowun_Dodum']"
+              onClick={() => setIsMenuOpen(false)}
+              href="/login"
+            >
+              Log in
             </a>
           </li>
         </ul>

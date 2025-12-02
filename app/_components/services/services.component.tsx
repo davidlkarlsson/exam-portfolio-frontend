@@ -4,9 +4,9 @@ import Image from "next/image";
 export function Services() {
   return (
     <>
-      <div id="services" className="w-full px-[12%] py-10 scroll-mt-20">
+      <div id="services" className="w-full px-[12%] py-10 scroll-mt-25">
         <h4 className="text-center mb-2 text-lg">What I offer</h4>
-
+        
         <h2 className="text-center text-5xl">My services</h2>
 
         <p className="text-center max-w-2xl mx-auto mt-5 mb-12">
