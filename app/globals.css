@@ -16,3 +16,7 @@
 @utility grid-cols-auto {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+
+@utility grid-cols-projects {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
+} 

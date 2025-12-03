@@ -1,5 +1,3 @@
-'use client'; // Makes the component a Client Component (interactive with useState e.g)
-
 
 import { About } from "./_components/about/about.component";
 import { Header } from "./_components/header/header.component";

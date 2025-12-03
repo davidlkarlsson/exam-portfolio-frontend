@@ -1,3 +1,5 @@
+'use client'; // Makes the component a Client Component (interactive with useState e.g)
+
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import { LogIn, ArrowUpRight, SunMoon, Menu } from 'lucide-react';
@@ -21,7 +23,7 @@ export function Navbar() {
       }
     })
   },[])
-
+  
   return (
     <>
       {/* Background */}
