@@ -1,12 +1,30 @@
+'use client'
+
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import ProjectInterface from "@/app/_types/project.interface";
+import { useEffect, useState } from "react";
 
-export async function Projects() {
-  const res = await fetch("http://localhost:3000/api/projects");
+export function Projects() {
 
-  const projectData: ProjectInterface[] = await res.json();
+  const [projectData, setProjectData] = useState<ProjectInterface[]>([]);
 
+  useEffect(() => {
+
+    async function loadProjects() {
+      try {
+        const res = await fetch("/api/projects");
+        if (!res.ok) throw new Error("Failed to fetch projects");
+        const data = await res.json();
+        setProjectData(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    loadProjects();
+  }, []);
+  
   return (
     <>
       <div id="projects" className="w-full px-[12%] py-10 scroll-mt-25">
@@ -21,8 +39,7 @@ export async function Projects() {
 
         <div className="grid justify-center grid-cols-projects my-10 gap-5">
           {projectData.map((project: ProjectInterface) => (
-            <a
-              key={project.id}
+            <a key={project.id}
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -37,7 +54,7 @@ export async function Projects() {
                transition-colors duration-300"
               >
                 <span
-                  className="opacity-0 group-hover:opacity-100 text-white text-xl font-semibold 
+                  className="absolute top-20 opacity-0 group-hover:opacity-100 text-white text-xl font-semibold 
                  transition-opacity duration-300"
                 >
                   View on GitHub
@@ -52,12 +69,12 @@ export async function Projects() {
               >
                 <div>
                   <h2 className="font-semibold">{project.title}</h2>
-                  <p className="text-sm text-gray-700">{project.description}</p>
+                  <p className="text-s text-gray-700">{project.description}</p>
                 </div>
 
                 <div
-                  className="border rounded-full border-black w-15 aspect-square flex items-center 
-				          justify-center group-hover:bg-activeLink"
+                  className="border rounded-full border-black w-7 aspect-square flex items-center 
+				          justify-center group-hover:bg-activeLink shrink-0"
                 >
                   <Image
                     src={assets.send_icon}
