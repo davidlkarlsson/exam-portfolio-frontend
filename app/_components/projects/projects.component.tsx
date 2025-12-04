@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { assets } from "@/assets/assets";
 import Image from "next/image";
@@ -6,11 +6,9 @@ import ProjectInterface from "@/app/_types/project.interface";
 import { useEffect, useState } from "react";
 
 export function Projects() {
-
   const [projectData, setProjectData] = useState<ProjectInterface[]>([]);
 
   useEffect(() => {
-
     async function loadProjects() {
       try {
         const res = await fetch("/api/projects");
@@ -24,7 +22,7 @@ export function Projects() {
 
     loadProjects();
   }, []);
-  
+
   return (
     <>
       <div id="projects" className="w-full px-[12%] py-10 scroll-mt-25">
@@ -39,7 +37,8 @@ export function Projects() {
 
         <div className="grid justify-center grid-cols-projects my-10 gap-5">
           {projectData.map((project: ProjectInterface) => (
-            <a key={project.id}
+            <a
+              key={project.id}
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -47,10 +46,10 @@ export function Projects() {
               duration-300 hover:scale-[1.02] relative group"
               style={{ backgroundImage: `url(${project.imageUrl})` }}
             >
-              {/* OVERLAY */}
+              {/* Desktop Overlay */}
               <div
-                className="absolute inset-0 group-hover:bg-black/50 
-               flex items-center justify-center rounded-lg
+                className="hidden sm:flex absolute inset-0 group-hover:bg-black/50 
+               items-center justify-center rounded-lg
                transition-colors duration-300"
               >
                 <span
@@ -61,8 +60,18 @@ export function Projects() {
                 </span>
               </div>
 
-              {/* White info box */}
+              {/* Mobile Badge */}
+              <div
+                className="
+                flex sm:hidden     /* Mobile only */
+                absolute top-3 right-3 
+                bg-black text-white text-[10px] font-semibold
+                px-2 py-0.5 rounded-full opacity-80"
+              >
+                GitHub
+              </div>
 
+              {/* White info box */}
               <div
                 className="bg-white min-w-11/12 rounded-md absolute bottom-5 left-1/2 -translate-x-1/2 
 			          py-3 px-5 flex items-center justify-between duration-300 group-hover:bottom-7"
