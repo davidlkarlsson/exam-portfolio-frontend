@@ -5,6 +5,7 @@ import { Header } from "./_components/header/header.component";
 import { Navbar } from "./_components/navbar/navbar.component";
 import { Projects } from "./_components/projects/projects.component";
 import { Services } from "./_components/services/services.component";
+import { Footer } from "./_components/footer/footer.component";
 
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
     <Services />
     <Projects />
     <Contact />
+    <Footer />
     </>
     
   );
