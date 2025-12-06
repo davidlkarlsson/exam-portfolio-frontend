@@ -1,5 +1,6 @@
 
 import { About } from "./_components/about/about.component";
+import { Contact } from "./_components/contact/contact.component";
 import { Header } from "./_components/header/header.component";
 import { Navbar } from "./_components/navbar/navbar.component";
 import { Projects } from "./_components/projects/projects.component";
@@ -16,6 +17,7 @@ export default function Home() {
     <About />
     <Services />
     <Projects />
+    <Contact />
     </>
     
   );
