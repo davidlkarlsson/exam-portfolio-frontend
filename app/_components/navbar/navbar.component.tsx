@@ -47,7 +47,7 @@ export function Navbar() {
         </a>
 
         {/* Desktop Menu */}
-        <ul className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 ${isScrolled ? "" : "bg-white shadow-sm bg-opacity-50"} `}>
+        <ul className={`hidden md:flex items-center gap-4 lg:gap-8 rounded-full px-12 py-3 shrink mr-3 ${isScrolled ? "" : "bg-white shadow-sm bg-opacity-50"} `}>
           <li>
             <a className={`font-['Gowun_Dodum'] ${activeLink === "home" ? "text-activeLink underline font-extrabold" : ""}`}
                 href="#top"
