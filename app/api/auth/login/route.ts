@@ -15,30 +15,40 @@ export async function POST(req: Request) {
 
   const backendRes = await fetch(`${baseUrl}/login`, {
     method: "POST",
-    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
 
+  // Always read raw text first
   const text = await backendRes.text();
   console.log("RAW BACKEND RESPONSE:", text);
 
-  let data;
-  try {
-    data = JSON.parse(text);
-  } catch (e) {
-    console.error("JSON PARSE ERROR:", e);
-    return NextResponse.json(
-      { error: "Backend sent invalid JSON" },
-      { status: 500 }
-    );
+  // Try parse JSON ONLY if body is not empty
+  let data: any = null;
+  if (text && text.trim() !== "") {
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.error("JSON PARSE ERROR:", e);
+      return NextResponse.json(
+        { error: "Backend sent invalid JSON" },
+        { status: 500 }
+      );
+    }
   }
 
   if (!backendRes.ok) {
-    return NextResponse.json(
-      { error: data.error || "Invalid login" },
-      { status: 401 }
-    );
+    // If backend sent JSON with an error message
+    if (data && data.error) {
+      return NextResponse.json({ error: data.error }, { status: 401 });
+    }
+
+    // If backend sent empty body → use default message
+    return NextResponse.json({ error: "Invalid login" }, { status: 401 });
   }
-  return NextResponse.json({ message: "Logged in" });
+
+  return NextResponse.json({
+    message: data.message,
+    username: data.username,
+  });
 }
