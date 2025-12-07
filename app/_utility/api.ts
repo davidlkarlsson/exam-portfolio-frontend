@@ -36,12 +36,12 @@ export async function apiFetch<T>(
   }
   
 
-  // EXPIRED / INVALID TOKEN
-  if (res.status === 401 || res.status === 403) {
-    console.warn("Session expired. Redirecting to login…");
-    window.location.href = "/login"; // Client-side redirect
-    return null;
-  }
+  // EXPIRED / INVALID TOKEN (except login request)
+if ((res.status === 401 || res.status === 403) && !url.includes("/auth/login")) {
+  console.warn("Session expired. Redirecting to login…");
+  window.location.href = "/login"; 
+  return null;
+}
   
 
   // HTTP ERROR
@@ -59,8 +59,8 @@ export async function apiFetch<T>(
     console.error("Response is not valid JSON:", err);
     return null;
   }
-
-
+  
+  
   // JSON IS NULL
   if (json == null) {
     console.error("JSON is null or undefined");
@@ -73,8 +73,9 @@ export async function apiFetch<T>(
     console.error("API logic error:", json.error);
     return null;
   }
-
+  
 
   // RETURN EITHER json.data OR JUST json
   return (json.data ?? json) as T;
 }
+
