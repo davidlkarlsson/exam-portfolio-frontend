@@ -17,7 +17,7 @@ export default function Page() {
     setLoading(true);
 
     const data = await apiFetch<{ message: string; username: string }>(
-      "api/auth/login",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
       {
         method: "POST",
         body: JSON.stringify({ email, password }),
@@ -34,7 +34,7 @@ export default function Page() {
     if (data.message) {
       setSuccessMessage(`Welcome, ${data.message}!`);
       setLoading(false);
-
+      
       setTimeout(() => {
         window.location.href = "/";
       }, 2000);
@@ -79,15 +79,15 @@ export default function Page() {
             required
           />
         </div>
-
+        
         {error && <p className="text-red-500">{error}</p>}
         {successMessage && <p className="text-green-600">{successMessage}</p>}
 
         <button
           type="submit"
           disabled={loading}
-          className={`cursor-pointer w-40 text-white py-2 rounded transition duration-500 flex items-center justify-center ${
-            loading ? "bg-gray-500" : "bg-black/80 hover:bg-black"
+          className={`w-40 text-white py-2 rounded transition duration-500 flex items-center justify-center ${
+            loading ? "bg-gray-500 cursor-not-allowed pointer-events-none" : "bg-black/80 hover:bg-black cursor-pointer"
           }`}
         >
           {loading ? (
