@@ -37,9 +37,9 @@ export async function apiFetch<T>(
   
 
   // EXPIRED / INVALID TOKEN (except login request)
-if ((res.status === 401 || res.status === 403) && !url.includes("/auth/login")) {
+if ((res.status === 401 || res.status === 403) && !url.includes("/login")) {
   console.warn("Session expired. Redirecting to login…");
-  window.location.href = "/login"; 
+  window.location.href = "/login"; // Client-side redirect
   return null;
 }
   
@@ -50,7 +50,7 @@ if ((res.status === 401 || res.status === 403) && !url.includes("/auth/login")) 
     return null;
   }
   
-
+  
   // SAFE JSON PARSE
   let json: any;
   try {
