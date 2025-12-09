@@ -11,6 +11,8 @@ export function Navbar({ user }: { user: any }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
+  
+  const isAdmin = user?.authorities === "ROLE_ADMIN";
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -41,7 +43,6 @@ export function Navbar({ user }: { user: any }) {
           isScrolled ? "bg-white bg-opacity-50 backdrop-blur-lg shadow-sm" : ""
         }`}
       >
-  
         {/* z-50 puts it above everything else*/}
         {/* Logo */}
         <a href="#top">
@@ -122,6 +123,23 @@ export function Navbar({ user }: { user: any }) {
               Contact
             </a>
           </li>
+          {isAdmin && (
+            <li>
+              <a
+                className={`font-['Gowun_Dodum'] ${
+                  activeLink === "admin"
+                    ? "text-activeLink underline font-extrabold"
+                    : ""
+                }`}
+                href="/admin"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setActiveLink("admin")}
+              >
+                Admin
+              </a>
+            </li>
+          )}
         </ul>
         {/* Buttons */}
         <div className="flex items-center gap-4">
@@ -239,6 +257,19 @@ export function Navbar({ user }: { user: any }) {
               Contact
             </a>
           </li>
+          {isAdmin && (
+            <li>
+              <a
+                className="font-['Gowun_Dodum']"
+                onClick={() => setIsMenuOpen(false)}
+                href="/admin"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Admin
+              </a>
+            </li>
+          )}
           <li>
             {user ? (
               <a
