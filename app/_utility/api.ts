@@ -23,12 +23,12 @@ export async function apiFetch<T>(
 
     // FETCH (network + HTTP errors)
     res = await fetch(url, {
-      credentials: "include", // Include cookies for JWT auth
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {}),
       },
       ...options,
+      credentials: "include", // Ensure cookies are included
     });
   } catch (networkError) {
     console.error("Network error:", networkError);
