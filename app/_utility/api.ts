@@ -17,21 +17,60 @@ export async function apiFetch<T>(
   url: string,
   options: RequestInit = {}
 ): Promise<T | null> {
+  
+  console.group('🚀 apiFetch Debug');
+  console.log('📤 Request:', {
+    url,
+    method: options.method || 'GET',
+    credentials: 'include',
+    body: options.body ? JSON.parse(options.body as string) : undefined,
+  });
+
   let res: Response;
   
   try {
-
     // FETCH (network + HTTP errors)
     res = await fetch(url, {
+      credentials: "include", // Include cookies for JWT auth
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {}),
       },
       ...options,
-      credentials: "include", // Ensure cookies are included
     });
+
+    console.log('📥 Response received:', {
+      status: res.status,
+      statusText: res.statusText,
+      ok: res.ok,
+      url: res.url,
+    });
+
+    // Log ALL response headers
+    console.log('📋 Response headers:');
+    const headers: Record<string, string> = {};
+    for (const [key, value] of res.headers.entries()) {
+      headers[key] = value;
+      console.log(`   ${key}: ${value}`);
+    }
+
+    // Special debug for Set-Cookie
+    const setCookieHeader = res.headers.get('set-cookie');
+    console.log('🍪 Set-Cookie header:', setCookieHeader || '❌ NO SET-COOKIE HEADER');
+    
+    // Check current cookies in browser
+    console.log('🔍 Current document.cookie:', document.cookie || 'No cookies');
+    
+    // Debug CORS headers
+    console.log('🌐 CORS headers:', {
+      'Access-Control-Allow-Origin': res.headers.get('Access-Control-Allow-Origin'),
+      'Access-Control-Allow-Credentials': res.headers.get('Access-Control-Allow-Credentials'),
+      'Access-Control-Expose-Headers': res.headers.get('Access-Control-Expose-Headers'),
+    });
+
   } catch (networkError) {
-    console.error("Network error:", networkError);
+    console.error("❌ Network error:", networkError);
+    console.groupEnd();
     return null;
   }
   
