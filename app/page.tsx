@@ -15,6 +15,7 @@ export default async function Home() {
   const cookieStore = await cookies();
   const token = cookieStore.get("authToken")?.value;
   const user = token ? decodeJwt(token) : null;
+  console.log("Decoded user:", user);
 
   return (
     <>
