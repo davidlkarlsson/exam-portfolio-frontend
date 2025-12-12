@@ -16,14 +16,14 @@ export default function AdminPageClient({ user }: { user: any }) {
   // Delete modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
-
-  const ADMIN_API_URL = process.env.NEXT_PUBLIC_ADMIN;
+  
+  // const ADMIN_API_URL = process.env.NEXT_PUBLIC_ADMIN;
   
   // Fetch projects
   useEffect(() => {
     async function load() {
       const data = await apiFetch<ProjectInterface[]>(
-        `${ADMIN_API_URL}/projects`
+        'backend/admin/projects'
       );
       if (data) setProjects(data);
       setLoading(false);
@@ -36,7 +36,7 @@ export default function AdminPageClient({ user }: { user: any }) {
   async function handleDelete() {
     if (!deleteId) return;
 
-    await apiFetch(`${ADMIN_API_URL}/projects/${deleteId}`, {
+    await apiFetch(`backend/admin/projects/${deleteId}`, {
       method: "DELETE",
     });
 
@@ -49,7 +49,7 @@ export default function AdminPageClient({ user }: { user: any }) {
     if (!editingProject) return;
 
     const updated = await apiFetch<ProjectInterface>(
-      `${ADMIN_API_URL}/projects/${editingProject.id}`,
+      `backend/admin/projects/${editingProject.id}`,
       {
         method: "PATCH",
         body: JSON.stringify(editingProject),
@@ -78,7 +78,7 @@ export default function AdminPageClient({ user }: { user: any }) {
     };
 
     const created = await apiFetch<ProjectInterface>(
-      `${ADMIN_API_URL}/projects`,
+      `backend/admin/projects`,
       {
         method: "POST",
         body: JSON.stringify(data),

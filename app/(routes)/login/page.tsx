@@ -17,7 +17,7 @@ export default function Page() {
     setLoading(true);
 
     const data = await apiFetch<{ message: string; username: string }>(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
+      '/backend/public/login',
       {
         method: "POST",
         body: JSON.stringify({ email, password }),
