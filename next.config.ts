@@ -2,10 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async rewrites() {
+    
+    const backendUrl = process.env.NEXT_PUBLIC_ADMIN;
+    
     return [
       {
         source: '/backend/:path*',
-        destination: 'http://localhost:8080/api/v1/:path*'  // Lokal backend
+        destination: `${backendUrl}/:path*` // Proxy to Backend
       }
     ];
   }
