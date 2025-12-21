@@ -15,5 +15,9 @@ export default async function AdminPage() {
 
   const user = decodeJwt(token);
 
+  if (!user || user.authorities !== "ROLE_ADMIN") {
+    redirect("/login");
+  }
+  
   return <AdminPageClient user={user} />;
 }

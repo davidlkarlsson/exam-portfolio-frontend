@@ -17,7 +17,6 @@ export default function AdminPageClient({ user }: { user: any }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
   
-  // const ADMIN_API_URL = process.env.NEXT_PUBLIC_ADMIN;
   
   // Fetch projects
   useEffect(() => {
@@ -31,7 +30,7 @@ export default function AdminPageClient({ user }: { user: any }) {
     
     load();
   }, []);
-
+  
   // Handle delete
   async function handleDelete() {
     if (!deleteId) return;
@@ -111,7 +110,7 @@ export default function AdminPageClient({ user }: { user: any }) {
         >
           + Create Project
         </button>
-
+        
         {/* Projects List */}
         <div className="grid grid-cols-1 gap-4">
           {projects.map((p) => (
@@ -156,8 +155,8 @@ export default function AdminPageClient({ user }: { user: any }) {
             <h2 className="text-xl font-bold mb-4">Create Project</h2>
 
             <form onSubmit={handleCreate} className="space-y-4">
-              <input name="title" placeholder="Title" className="w-full p-2 border rounded" />
-              <textarea name="description" placeholder="Description" className="w-full p-2 border rounded" />
+              <input name="title" placeholder="Title" required minLength={5} maxLength={50} className="w-full p-2 border rounded" />
+              <textarea name="description" placeholder="Description" required minLength={5} maxLength={200} className="w-full p-2 border rounded" />
               <input name="imageUrl" placeholder="Image URL" className="w-full p-2 border rounded" />
               <input name="githubUrl" placeholder="GitHub URL" className="w-full p-2 border rounded" />
 
@@ -186,6 +185,7 @@ export default function AdminPageClient({ user }: { user: any }) {
             <h2 className="text-xl font-bold mb-4">Edit Project</h2>
 
             <input
+              placeholder="Title"
               value={editingProject.title}
               onChange={(e) =>
                 setEditingProject({ ...editingProject, title: e.target.value })
@@ -194,6 +194,7 @@ export default function AdminPageClient({ user }: { user: any }) {
             />
 
             <textarea
+              placeholder="Description"
               value={editingProject.description}
               onChange={(e) =>
                 setEditingProject({ ...editingProject, description: e.target.value })
@@ -202,6 +203,7 @@ export default function AdminPageClient({ user }: { user: any }) {
             />
 
             <input
+              placeholder="Image URL"
               value={editingProject.imageUrl}
               onChange={(e) =>
                 setEditingProject({ ...editingProject, imageUrl: e.target.value })
@@ -210,6 +212,7 @@ export default function AdminPageClient({ user }: { user: any }) {
             />
 
             <input
+              placeholder="GitHub URL"
               value={editingProject.githubUrl}
               onChange={(e) =>
                 setEditingProject({ ...editingProject, githubUrl: e.target.value })
