@@ -2,9 +2,9 @@
 
 import { assets } from "@/assets/assets";
 import Image from "next/image";
-import { LogIn, LogOut, ArrowUpRight, SunMoon, Menu } from "lucide-react";
-import { NavButton } from "@/app/_components/buttons/nav-button.component";
-import { SmNavButton } from "../buttons/sm-nav-button.component";
+import { LogIn, LogOut, SunMoon, Menu } from "lucide-react";
+import { AuthNavButton } from "../buttons/auth-nav-button.component";
+import { SmButton } from "../buttons/sm-button.component";
 import { useEffect, useState } from "react";
 
 export function Navbar({ user }: { user: any }) {
@@ -13,7 +13,7 @@ export function Navbar({ user }: { user: any }) {
   const [activeLink, setActiveLink] = useState("home");
   
   const isAdmin = user?.authorities === "ROLE_ADMIN";
-
+  
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (scrollY > 50) {
@@ -49,12 +49,12 @@ export function Navbar({ user }: { user: any }) {
           <Image
             src={assets.logo}
             alt={"logo_david_karlsson"}
-            className="w-25 cursor-pointer mr-14"
+            className="w-25 cursor-pointer mr-14 shrink-0"
           ></Image>
         </a>
         {/* Desktop Menu */}
         <ul
-          className={`hidden md:flex items-center gap-4 lg:gap-8 rounded-full px-12 py-3 shrink mr-3 ${
+          className={`hidden lg:flex items-center gap-8 rounded-full px-12 py-3 ${
             isScrolled ? "" : "bg-white shadow-sm bg-opacity-50"
           } `}
         >
@@ -144,8 +144,9 @@ export function Navbar({ user }: { user: any }) {
         {/* Buttons */}
         <div className="flex items-center gap-4">
           {/* Theme Button */}
-          <SmNavButton
+          <SmButton
             icon={SunMoon}
+            ariaLabel="Toggle theme"
             iconProps={{
               size: 35,
               color: "black",
@@ -158,7 +159,7 @@ export function Navbar({ user }: { user: any }) {
 
           {/* USER IS LOGGED IN -> SHOW LOGOUT */}
           {user ? (
-            <NavButton
+            <AuthNavButton
               text={`Log out (${user.username})`}
               href={"/logout"}
               icon={LogOut}
@@ -169,10 +170,10 @@ export function Navbar({ user }: { user: any }) {
               }}
             />
           ) : (
-            <NavButton
+            <AuthNavButton
               text={"Log in"}
               href={"/login"}
-              icon={LogOut}
+              icon={LogIn}
               iconProps={{
                 size: 18,
                 color: "black",
@@ -182,20 +183,21 @@ export function Navbar({ user }: { user: any }) {
           )}
 
           {/* Hamburger Button */}
-          <SmNavButton
+          <SmButton
             icon={Menu}
+            ariaLabel="Open menu"
             iconProps={{
               size: 35,
               color: "black",
               strokeWidth: 2,
             }}
-            className="block md:hidden ml-3 cursor-pointer"
+            className="block lg:hidden ml-3 cursor-pointer"
             onClick={() => setIsMenuOpen(true)}
           />
         </div>
         {/* Mobile Menu */}
         <ul
-          className={`flex md:hidden flex-col gap-4 py-20 px-10 
+          className={`flex lg:hidden flex-col gap-4 py-20 px-10 
 			      fixed top-0 bottom-0 w-64 z-50 h-screen 
             bg-mobileMenu transition duration-500
             ${isMenuOpen ? "right-0" : "-right-64"}
@@ -208,6 +210,7 @@ export function Navbar({ user }: { user: any }) {
               alt="close_navbar_icon"
               className="w-5 cursor-pointer"
               onClick={() => setIsMenuOpen(false)}
+              aria-label="Close menu"
             />
           </div>
 
