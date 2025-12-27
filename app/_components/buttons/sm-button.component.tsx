@@ -6,6 +6,7 @@ interface SmButtonProps {
   className?: string;
   onClick?: () => void;
   ariaLabel: string;
+  title: string;
 }
 
 export function SmButton({
@@ -14,6 +15,7 @@ export function SmButton({
   className,
   onClick,
   ariaLabel,
+  title
 }: SmButtonProps) {
   return (
     <button
@@ -21,6 +23,7 @@ export function SmButton({
       onClick={onClick}
       aria-label={ariaLabel}
       className={className}
+      title={title}
     >
       <Icon {...iconProps} />
     </button>

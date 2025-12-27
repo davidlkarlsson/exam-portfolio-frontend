@@ -7,13 +7,19 @@ import { AuthNavButton } from "../buttons/auth-nav-button.component";
 import { SmButton } from "../buttons/sm-button.component";
 import { useEffect, useState } from "react";
 
-export function Navbar({ user }: { user: any }) {
+export function Navbar({
+  user,
+  onOpenAdmin,
+}: {
+  user: any;
+  onOpenAdmin: () => void;
+}) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
-  
+
   const isAdmin = user?.authorities === "ROLE_ADMIN";
-  
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (scrollY > 50) {
@@ -125,19 +131,19 @@ export function Navbar({ user }: { user: any }) {
           </li>
           {isAdmin && (
             <li>
-              <a
-                className={`font-['Gowun_Dodum'] ${
+              <button
+                className={`font-['Gowun_Dodum'] cursor-pointer ${
                   activeLink === "admin"
                     ? "text-activeLink underline font-extrabold"
                     : ""
                 }`}
-                href="/admin"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setActiveLink("admin")}
+                onClick={() => {
+                  setActiveLink("admin");
+                  onOpenAdmin();
+                }}
               >
                 Admin
-              </a>
+              </button>
             </li>
           )}
         </ul>
@@ -147,6 +153,7 @@ export function Navbar({ user }: { user: any }) {
           <SmButton
             icon={SunMoon}
             ariaLabel="Toggle theme"
+            title="Toggle theme"
             iconProps={{
               size: 35,
               color: "black",
@@ -186,6 +193,7 @@ export function Navbar({ user }: { user: any }) {
           <SmButton
             icon={Menu}
             ariaLabel="Open menu"
+            title="Open menu"
             iconProps={{
               size: 35,
               color: "black",
@@ -262,15 +270,15 @@ export function Navbar({ user }: { user: any }) {
           </li>
           {isAdmin && (
             <li>
-              <a
-                className="font-['Gowun_Dodum']"
-                onClick={() => setIsMenuOpen(false)}
-                href="/admin"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                className="font-['Gowun_Dodum'] cursor-pointer"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  onOpenAdmin();
+                }}
               >
                 Admin
-              </a>
+              </button>
             </li>
           )}
           <li>
