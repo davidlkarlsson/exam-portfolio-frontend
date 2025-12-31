@@ -20,3 +20,8 @@
 @utility grid-cols-projects {
   grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
 } 
+
+.phone-input:focus-within {
+  outline: auto;
+  border-radius: 0.375rem; /* rounded-md */
+}

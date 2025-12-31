@@ -43,17 +43,22 @@ export function Contact() {
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMsg(data.error || "Something went wrong.");
-      } else {
-        setSuccessMsg("Your message has been sent!");
-        setForm(initialForm); // reset form
+        if (data.errors?.length > 0) {
+          setErrorMsg(data.errors[0].message);
+        } else {
+          setErrorMsg(data.error || "Something went wrong.");
+        }
+        return;
       }
+
+      setSuccessMsg("Your message has been sent! Thank you.");
+      setForm(initialForm); // reset form
     } catch (err) {
       setErrorMsg("Failed to send message. Please try again.");
       console.error(err);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
@@ -77,60 +82,49 @@ export function Contact() {
           <input
             name="name"
             type="text"
-            placeholder="Name"
+            placeholder="Name*"
             required
             value={form.name}
             onChange={handleChange}
-            className="p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white"
+            className="p-3 border-[0.5px] border-gray-400 rounded-md bg-white"
           />
 
           {/* Phone */}
           <PhoneInput
             country={"se"}
             onlyCountries={["se"]}
-            countryCodeEditable={false}
-            masks={{ se: "(..) ... .. .." }}
-            disableSearchIcon={true}
-            placeholder="Phone"
-            inputClass="!w-full !h-[48px] !border !border-gray-400 !rounded-md !bg-white !pl-14"
-            buttonClass="!h-[48px] !border !border-gray-400 !rounded-l-md"
+            countryCodeEditable={true}
+            autoFormat={false}
+            placeholder="Phone (optional)"
+            containerClass="phone-input"
+            inputClass="!w-full !h-[58px] !border-gray-400 !rounded-md !bg-white !pl-14"
+            buttonClass="!h-[58px] !border-gray-400 !rounded-l-md"
             dropdownClass="!w-[300px]"
             value={form.phone}
             onChange={(phone) => {
-    
-              let p = phone;
-
-              if (!p.startsWith("+")) {
-                p = "+" + p;
-              }
-
-              p = p.replace(/^\+460/, "+46");
-              
-              console.log("Formatted phone:", p);
-            
-              setForm({ ...form, phone: p });
+              setForm({ ...form, phone });
             }}
           />
-
+          
           {/* Email */}
           <input
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder="Email*"
             required
             value={form.email}
             onChange={handleChange}
-            className="sm:col-span-2 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white"
+            className="sm:col-span-2 p-3 border-[0.5px] border-gray-400 rounded-md bg-white"
           />
 
           {/* Subject */}
           <input
             name="subject"
             type="text"
-            placeholder="Subject"
+            placeholder="Subject (optional)"
             value={form.subject}
             onChange={handleChange}
-            className="sm:col-span-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white"
+            className="sm:col-span-1 p-3 border-[0.5px] border-gray-400 rounded-md bg-white"
           />
         </div>
 
@@ -138,11 +132,11 @@ export function Contact() {
         <textarea
           name="message"
           rows={6}
-          placeholder="Enter your message"
+          placeholder="Enter your message*"
           required
           value={form.message}
           onChange={handleChange}
-          className="w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-md bg-white mb-6"
+          className="w-full p-4 border-[0.5px] border-gray-400 rounded-md bg-white mb-6"
         ></textarea>
 
         {/* Success */}
