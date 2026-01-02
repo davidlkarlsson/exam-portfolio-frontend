@@ -2,7 +2,7 @@
 
 import { assets } from "@/assets/assets";
 import Image from "next/image";
-import { LogIn, LogOut, SunMoon, Menu } from "lucide-react";
+import { LogIn, LogOut, Menu } from "lucide-react";
 import { AuthNavButton } from "../buttons/auth-nav-button.component";
 import { SmButton } from "../buttons/sm-button.component";
 import { useEffect, useState } from "react";
@@ -148,20 +148,8 @@ export function Navbar({
           )}
         </ul>
         {/* Buttons */}
-        <div className="flex items-center gap-4">
-          {/* Theme Button */}
-          <SmButton
-            icon={SunMoon}
-            ariaLabel="Toggle theme"
-            title="Toggle theme"
-            iconProps={{
-              size: 35,
-              color: "black",
-              strokeWidth: 1,
-            }}
-            className="cursor-pointer"
-          />
-
+        <div className="flex items-center">
+          
           {/* Login / Logout Buttons*/}
 
           {/* USER IS LOGGED IN -> SHOW LOGOUT */}
