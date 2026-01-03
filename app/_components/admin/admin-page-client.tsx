@@ -107,7 +107,6 @@ export default function AdminPageClient({
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-lg flex justify-center items-start pt-20 z-50">
       <div className="relative bg-white w-[90%] max-w-4xl p-8 rounded-xl shadow-xl">
-        
         {/* Close Button */}
         <SmButton
           className="absolute top-4 right-4 cursor-pointer"
@@ -179,7 +178,7 @@ export default function AdminPageClient({
             <form onSubmit={handleCreate} className="space-y-4">
               <input
                 name="title"
-                placeholder="Title"
+                placeholder="Title*"
                 required
                 minLength={5}
                 maxLength={50}
@@ -187,7 +186,7 @@ export default function AdminPageClient({
               />
               <textarea
                 name="description"
-                placeholder="Description"
+                placeholder="Description*"
                 required
                 minLength={5}
                 maxLength={200}
@@ -231,66 +230,83 @@ export default function AdminPageClient({
           <div className="bg-white p-6 rounded-lg w-full max-w-md shadow-lg">
             <h2 className="text-xl font-bold mb-4">Edit Project</h2>
 
-            <input
-              placeholder="Title"
-              value={editingProject.title}
-              onChange={(e) =>
-                setEditingProject({ ...editingProject, title: e.target.value })
-              }
-              className="w-full p-2 border rounded mb-4"
-            />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleUpdate();
+              }}
+            >
+              <input
+                placeholder="Title*"
+                required
+                minLength={5}
+                maxLength={50}
+                value={editingProject.title}
+                onChange={(e) =>
+                  setEditingProject({
+                    ...editingProject,
+                    title: e.target.value,
+                  })
+                }
+                className="w-full p-2 border rounded mb-4"
+              />
 
-            <textarea
-              placeholder="Description"
-              value={editingProject.description}
-              onChange={(e) =>
-                setEditingProject({
-                  ...editingProject,
-                  description: e.target.value,
-                })
-              }
-              className="w-full p-2 border rounded mb-4"
-            />
+              <textarea
+                placeholder="Description*"
+                required
+                minLength={5}
+                maxLength={200}
+                value={editingProject.description}
+                onChange={(e) =>
+                  setEditingProject({
+                    ...editingProject,
+                    description: e.target.value,
+                  })
+                }
+                className="w-full p-2 border rounded mb-4"
+              />
 
-            <input
-              placeholder="Image URL"
-              value={editingProject.imageUrl}
-              onChange={(e) =>
-                setEditingProject({
-                  ...editingProject,
-                  imageUrl: e.target.value,
-                })
-              }
-              className="w-full p-2 border rounded mb-4"
-            />
+              <input
+                placeholder="Image URL"
+                value={editingProject.imageUrl}
+                onChange={(e) =>
+                  setEditingProject({
+                    ...editingProject,
+                    imageUrl: e.target.value,
+                  })
+                }
+                className="w-full p-2 border rounded mb-4"
+              />
 
-            <input
-              placeholder="GitHub URL"
-              value={editingProject.githubUrl}
-              onChange={(e) =>
-                setEditingProject({
-                  ...editingProject,
-                  githubUrl: e.target.value,
-                })
-              }
-              className="w-full p-2 border rounded mb-4"
-            />
+              <input
+                placeholder="GitHub URL"
+                value={editingProject.githubUrl}
+                onChange={(e) =>
+                  setEditingProject({
+                    ...editingProject,
+                    githubUrl: e.target.value,
+                  })
+                }
+                className="w-full p-2 border rounded mb-4"
+              />
 
-            <div className="flex justify-end gap-2 mt-6">
-              <button
-                onClick={() => setShowEditModal(false)}
-                className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded cursor-pointer"
-              >
-                Cancel
-              </button>
+              <div className="flex justify-end gap-2 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowEditModal(false)}
+                  className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded cursor-pointer"
+                >
+                  Cancel
+                </button>
 
-              <button
-                onClick={handleUpdate}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded cursor-pointer"
-              >
-                Save changes
-              </button>
-            </div>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded cursor-pointer"
+                >
+                  Save changes
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
