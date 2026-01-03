@@ -66,7 +66,7 @@ export function Projects() {
               .map((project: ProjectInterface) => (
                 <article
                   key={project.id}
-                  className="aspect-square bg-no-repeat bg-cover bg-center rounded-lg 
+                  className="aspect-4/5 sm:aspect-square bg-no-repeat bg-cover bg-center rounded-lg 
                          transition-transform duration-300 hover:scale-[1.02] 
                          relative group"
                   style={{ backgroundImage: `url(${project.imageUrl})` }}
@@ -79,10 +79,10 @@ export function Projects() {
                     aria-label={`View ${project.title} on GitHub`}
                     className="absolute inset-0 z-10"
                   />
-
+                  
                   {/* Desktop Overlay */}
                   <div
-                    className="hidden sm:flex absolute inset-0 group-hover:bg-black/50 
+                    className="hidden lg:flex absolute inset-0 group-hover:bg-black/50 
                            items-center justify-center rounded-lg
                            transition-colors duration-300"
                   >
@@ -98,32 +98,37 @@ export function Projects() {
 
                   {/* Mobile Badge */}
                   <div
-                    className="flex sm:hidden absolute top-3 right-3 
+                    className="flex lg:hidden absolute top-3 right-3 
                            bg-black text-white text-[10px] 
                            font-semibold px-2 py-0.5 
-                           rounded-full opacity-80"
+                           rounded-full opacity-80 z-20 max-h-[45%]"
                   >
                     GitHub
                   </div>
 
                   {/* White Info box */}
                   <div
-                    className="bg-white min-w-11/12 rounded-md absolute 
+                    className="bg-white w-11/12 max-w-11/12 rounded-md absolute 
                            bottom-5 left-1/2 -translate-x-1/2 
                            py-3 px-4 flex items-center 
                            justify-between duration-300 
-                           group-hover:bottom-7"
+                           group-hover:bottom-7 overflow-hidden"
                   >
-                    <div>
+                    <div className="min-w-0">
                       <h3 className="font-semibold">{project.title}</h3>
-                      
-                      <p className="text-s text-gray-700">
-                        {project.description}
-                      </p>
+
+                      {/* Scroll ONLY the description */}
+                      <div className="max-h-20 overflow-y-auto pr-1">
+                        <p className="text-sm text-gray-700 wrap-break-word">
+                          {project.description}
+                        </p>
+                      </div>
 
                       {/* Inline metadata */}
-                      <div className="flex flex-col sm:flex-row sm:gap-4 mt-1 text-xs text-gray-500 min-w-0">
-                        <span className="whitespace-nowrap">Created: {formatDate(project.createdDate)}</span>
+                      <div className="flex flex-col sm:flex-row sm:gap-4 mt-5 text-xs text-gray-500">
+                        <span className="whitespace-nowrap">
+                          Created: {formatDate(project.createdDate)}
+                        </span>
                         
                         {project.lastModifiedDate !== project.createdDate && (
                           <span className="whitespace-nowrap">
@@ -132,12 +137,12 @@ export function Projects() {
                         )}
                       </div>
                     </div>
-                    
+
                     <div
                       className="border rounded-full border-black 
                              w-7 aspect-square flex 
                              items-center justify-center 
-                             group-hover:bg-activeLink shrink-0"
+                             group-hover:bg-activeLink shrink-0 ml-4"
                     >
                       <Image
                         src={assets.send_icon}
@@ -172,7 +177,7 @@ export function Projects() {
                 size: 18,
                 strokeWidth: 2,
               }}
-              className="flex items-center rounded-full border border-gray-700 p-3 gap-1 hover:bg-mobileMenu hover:cursor-pointer"
+              className="flex items-center rounded-full border border-gray-700 p-3 gap-1 hover:cursor-pointer"
             />
           </div>
         )}
