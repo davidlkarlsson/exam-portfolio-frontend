@@ -26,6 +26,17 @@ export default function AdminPageClient({
   // Delete modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+  
+  // Lock background scroll
+  useEffect(() => {
+  // Lock background scroll when admin panel opens
+  document.body.style.overflow = "hidden";
+
+  return () => {
+    // Restore scroll when admin panel closes
+    document.body.style.overflow = "";
+  };
+}, []);
 
   // Fetch projects
   useEffect(() => {
@@ -105,8 +116,8 @@ export default function AdminPageClient({
     );
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-lg flex justify-center items-start pt-20 z-50">
-      <div className="relative bg-white w-[90%] max-w-4xl p-8 rounded-xl shadow-xl">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-lg flex justify-center items-center z-50">
+      <div className="relative flex flex-col bg-white w-[90%] max-w-4xl max-h-[90vh] overflow-hidden p-5 lg:p-8 rounded-xl shadow-xl">
         {/* Close Button */}
         <SmButton
           className="absolute top-4 right-4 cursor-pointer"
@@ -122,50 +133,54 @@ export default function AdminPageClient({
         ></SmButton>
 
         {/* Header */}
-        <h1 className="text-3xl font-bold mb-6">Admin Panel – Projects</h1>
+        <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6">Admin Panel – Projects</h1>
 
         {/* Create Button */}
         <button
           onClick={() => setShowCreateModal(true)}
-          className="mb-6 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg cursor-pointer"
+          className="self-start mb-6 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg cursor-pointer"
         >
           + Create Project
         </button>
-
+        
         {/* Projects List */}
-        <div className="grid grid-cols-1 gap-4">
-          {projects.map((p) => (
-            <div
-              key={p.id}
-              className="p-5 bg-gray-50 rounded-lg shadow flex justify-between items-center"
-            >
-              <div>
-                <h3 className="font-bold text-lg">{p.title}</h3>
-                <p className="text-gray-600 text-sm">{p.description}</p>
-              </div>
+        <div className="flex-1 overflow-y-auto pr-4">
+          <div className="grid grid-cols-1 gap-4">
+            {projects.map((p) => (
+              <div
+                key={p.id}
+                className="p-5 bg-gray-200 rounded-lg shadow-md flex justify-between items-center"
+              >
+                {/* Project Info */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-md sm:text-lg truncate">{p.title}</h3>
+                  <p className="text-gray-600 text-xs sm:text-sm lg:text-base line-clamp-2">{p.description}</p>
+                </div>
 
-              <div className="flex gap-2">
-                <button
-                  onClick={() => {
-                    setEditingProject(p);
-                    setShowEditModal(true);
-                  }}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded cursor-pointer"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => {
-                    setDeleteId(p.id);
-                    setShowDeleteModal(true);
-                  }}
-                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded cursor-pointer"
-                >
-                  Delete
-                </button>
+                {/* Action Buttons */}
+                <div className="flex gap-2 shrink-0">
+                  <button
+                    onClick={() => {
+                      setEditingProject(p);
+                      setShowEditModal(true);
+                    }}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded cursor-pointer"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      setDeleteId(p.id);
+                      setShowDeleteModal(true);
+                    }}
+                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded cursor-pointer"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
