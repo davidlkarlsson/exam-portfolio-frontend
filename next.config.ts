@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async rewrites() {
     
-    const backendUrl = process.env.NEXT_PUBLIC_ADMIN;
+    const backendUrl = process.env.BACKEND_URL
     
     return [
       {

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const baseUrl = process.env.BACKEND_URL;
   console.log("Backend URL:", baseUrl);
 
   if (!baseUrl) {
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     const body = await request.json();
 
     // Forward the form data to the backend API
-    const backendRes = await fetch(`${baseUrl}/contact`, {
+    const backendRes = await fetch(`${baseUrl}/public/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

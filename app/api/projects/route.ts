@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const baseUrl = process.env.BACKEND_URL;
   console.log("Backend URL:", baseUrl);
 
   if (!baseUrl) {
@@ -12,7 +12,7 @@ export async function GET() {
   }
 
   try {
-    const res = await fetch(`${baseUrl}/projects`, { cache: "no-store" });
+    const res = await fetch(`${baseUrl}/public/projects`, { cache: "no-store" });
 
     if (!res.ok) {
       return NextResponse.json(
@@ -22,7 +22,7 @@ export async function GET() {
     }
 
     const data = await res.json();
-
+    
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Projects API error:", error);
