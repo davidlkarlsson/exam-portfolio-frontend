@@ -152,7 +152,7 @@ export default function AdminPageClient({
                 className="p-5 bg-gray-200 rounded-lg shadow-md flex justify-between items-center"
               >
                 {/* Project Info */}
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 mr-5">
                   <h3 className="font-bold text-md sm:text-lg truncate">{p.title}</h3>
                   <p className="text-gray-600 text-xs sm:text-sm lg:text-base line-clamp-2">{p.description}</p>
                 </div>
