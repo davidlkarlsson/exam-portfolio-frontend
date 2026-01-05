@@ -1,0 +1,18 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  // Tailwind: öppna .css i Tailwind-mode
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  // Tailwind: tillåt completions i JSX/TSX-strängar
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+
+  // FIX: Stoppa VS Code från att markera @theme som error
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore"
+}
